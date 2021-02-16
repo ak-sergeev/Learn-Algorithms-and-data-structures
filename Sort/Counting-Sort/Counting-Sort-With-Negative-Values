@@ -1,0 +1,32 @@
+def countingsort(values):
+    """
+    Сортировка подсчетом с отрицательными значениями.
+    Работает с массивами целых чисел в небольшом диапазоне.
+    """
+
+    # Расчет min_value и max_value.
+    min_value = max_value = values[0]
+    for value in values[1:]:
+        if value < min_value:
+            min_value = value
+        if value > max_value:
+            max_value = value
+
+    # Вычисляем размер массива.
+    array_size = abs(min_value) + abs(max_value) + 1
+
+    # Создаем массив-счетчик.
+    # Складываем абсолютные значения min_value и max_value.
+    counts = [0] * array_size
+
+    # Считаем количество значений основного массива.
+    # Делаем сдвиг на величину минимального значения.
+    for value in values:
+        counts[value + abs(min_value)] += 1
+
+    # Копируем значения обратно в массив.
+    index = 0
+    for i in range(array_size):
+        for j in range(counts[i]):
+            values[index] = i - abs(min_value)
+            index += 1
