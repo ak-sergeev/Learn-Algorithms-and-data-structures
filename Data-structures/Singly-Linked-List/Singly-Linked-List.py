@@ -145,6 +145,9 @@ class List:
         self.top = new_top
 
     def __str__(self):
+        """
+        Возвращает все элементы связного списка в виде строки.
+        """
         current = self.top.next_node
         values = "["
 
