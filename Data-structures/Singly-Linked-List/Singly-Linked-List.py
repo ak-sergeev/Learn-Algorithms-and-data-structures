@@ -106,7 +106,43 @@ class List:
             current = current.next_node
             i += 1
 
-        return i
+        return
+    
+    def sort(self):
+        """
+        Сортирует связный список методом выбора.
+        Хорошо работает при частых добавлениях новых элементов и при редких сортировках.
+        """
+
+        # Новый ограничитель для нового списка.
+        new_top = Node()
+
+        current = self.top
+
+        # Повторяем пока исходный список не пустой.
+        while current.next_node is not None:
+
+            # Ячейка after_me предшествует ячейке с наибольшим элементом.
+            max_after_me = current
+            max_value = max_after_me.next_node.value
+
+            # Ищем следующий элемент
+            after_me = current.next_node
+            while after_me.next_node is not None:
+                if after_me.next_node.value > max_value:
+                    max_after_me = after_me
+                    max_value = after_me.next_node.value
+                after_me = after_me.next_node
+
+            # Удаляем максимальную ячейку из текущего списка.
+            max_node = max_after_me.next_node
+            max_after_me.next_node = max_node.next_node
+
+            # Добавлям максимальную ячейку в начало нового списка.
+            max_node.next_node = new_top.next_node
+            new_top.next_node = max_node
+
+        self.top = new_top
 
     def __str__(self):
         current = self.top.next_node
